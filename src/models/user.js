@@ -7,13 +7,13 @@ const NewUser = new Schema({
   email: { type: String, required: true },
 });
 
-pets.method.ConfigPassword = async (password) => {
-  const salt = await bcrytjs.getSalt(10);
+NewUser.methods.ConfigPassword = async (password) => {
+  const salt = await bcrytjs.genSalt(10);
   return await bcrytjs.hash(password, salt);
 };
 
-pets.method.MatchPassword = function(password){
- return await bcrytjs.compare(password, this.password);
-}
+NewUser.methods.MatchPassword = async function (password) {
+  return await bcrytjs.compare(password, this.password);
+};
 
-module.exports = mongoose.model("User", NewUser);
+module.exports = model("User", NewUser);

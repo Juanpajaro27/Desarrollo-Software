@@ -7,4 +7,5 @@ routes.get("/pets", (req, res) => {
   res.json(pet);
 });
 
+routes.post("/profile/pets", (req, res) => {});
 module.exports = routes;

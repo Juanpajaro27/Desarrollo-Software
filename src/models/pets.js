@@ -12,4 +12,4 @@ const pets = new Schema(
   }
 );
 
-module.exports = Mongoose.model("newPet", pets);
+module.exports = model("newPet", pets);
