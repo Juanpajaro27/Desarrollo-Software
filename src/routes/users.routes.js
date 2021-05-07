@@ -16,20 +16,14 @@ routes.get("/signup", (req, res) => {
 });
 
 routes.post("/signup", async (req, res) => {
-  const { username, password, confirm_password, email } = req.body;
-
-  if (password != confirm_password) {
-    res.render("signup");
-  }
-
-  const confirmEmail = User.findOne({ email: email });
+  const { username, password, email } = req.body;
+  const confirmEmail = await User.findOne({ email: email });
   if (confirmEmail) {
-    res.render("signup");
+    res.json("Email found");
   } else {
     const Newuser = new User({ username, password, email });
     Newuser.password = await Newuser.ConfigPassword(password);
     await Newuser.save();
-    console.log(Newuser);
     res.redirect("signin");
   }
 });
@@ -46,4 +40,10 @@ routes.post(
     failureFlash: true,
   })
 );
+
+routes.get("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("index");
+});
+
 module.exports = routes;

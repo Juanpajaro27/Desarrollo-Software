@@ -15,7 +15,6 @@ app.engine("ejs", engine);
 app.set("view engine", "ejs");
 
 //Midelware
-app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -30,7 +29,7 @@ app.use(passport.session());
 
 //Routes
 app.use("/", require("./routes/users.routes"));
-app.use("/index/pets", require("./routes/Pets.routes"));
+app.use("/pets", require("./routes/Pets.routes"));
 
 app.listen(app.get("Port"), () => {
   console.log("Server on port 3000");

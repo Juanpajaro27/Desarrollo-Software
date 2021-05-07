@@ -1,11 +1,11 @@
 const express = require("express");
 const routes = express.Router();
 const pets = require("../models/pets");
+const { auth } = require("../helpers/validate");
 
-routes.get("/pets", (req, res) => {
-  const pet = pets.find();
-  res.json(pet);
+routes.get("/profile", auth, (req, res) => {
+  res.render("profilePets");
 });
 
-routes.post("/profile/pets", (req, res) => {});
+routes.post("/profile/pets", auth, (req, res) => {});
 module.exports = routes;
