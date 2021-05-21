@@ -7,8 +7,9 @@ routes.get("/", (req, res) => {
   res.render("index");
 });
 
-routes.get("/user", (req, res) => {
-  res.json(User.find());
+routes.get("/user", async (req, res) => {
+  const USER = await User.find();
+  res.json(USER);
 });
 
 routes.get("/signup", (req, res) => {

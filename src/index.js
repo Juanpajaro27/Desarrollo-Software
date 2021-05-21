@@ -7,6 +7,9 @@ const passport = require("passport");
 const path = require("path");
 const app = express();
 const session = require("express-session");
+const multer = require("multer");
+const { v4: uuid } = require("uuid");
+const cors = require("cors");
 
 //Settings
 app.set("Port", process.env.Port || 3000);
@@ -16,7 +19,15 @@ app.set("view engine", "ejs");
 
 //Midelware
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors);
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, "images/uploads"),
+  filename: (req, file, cb, filename) => {
+    cb(null, uuid() + path.extname(file.originalname));
+  },
+});
+app.use(multer({ storage: storage }).single("file"));
 app.use(
   session({
     secret: "proyect-software",

@@ -10,7 +10,7 @@ passport.use(
       passReqToCallback: true,
     },
     async (username, password, email, done) => {
-      const NewUser = await user.findOne({ email: email });
+      const NewUser = await user.findOne({ username: username });
 
       if (!NewUser) {
         return done(null, false);
